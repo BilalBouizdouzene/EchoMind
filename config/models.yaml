@@ -1,0 +1,20 @@
+models:
+  tiny:
+    backend: faster-whisper
+    name: tiny
+    compute_type: int8
+    description: Lowest-memory multilingual baseline
+  base:
+    backend: faster-whisper
+    name: base
+    compute_type: int8
+    description: Balanced CPU model
+  small:
+    backend: faster-whisper
+    name: small
+    compute_type: int8
+    description: Research mode; may exceed 8 GB RAM in practice
+optional:
+  ollama:
+    enabled: false
+    model: phi3:mini

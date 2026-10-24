@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 900" role="img" aria-labelledby="title description">
+  <title id="title">EchoMind speech analysis architecture</title>
+  <desc id="description">Local audio passes through preprocessing and faster-whisper, then uncertainty scoring and a decision policy. The policy can accept the baseline, selectively re-decode a bounded region, or request clarification. Outputs preserve transcript and provenance.</desc>
+  <defs>
+    <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#090d1c"/><stop offset="1" stop-color="#15142b"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#20bbc5"/><stop offset=".58" stop-color="#7668e8"/><stop offset="1" stop-color="#a75fc7"/></linearGradient>
+    <linearGradient id="node" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1a2039"/><stop offset="1" stop-color="#101629"/></linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="#8ce9e7"/></marker>
+    <style>
+      text{font-family:Inter,Segoe UI,Arial,sans-serif;fill:#f0f2ff}
+      .title{font-size:34px;font-weight:750;letter-spacing:-1px}
+      .sub{font-size:16px;fill:#a8aec9}
+      .label{font-size:19px;font-weight:700}
+  .detail{font-size:13px;fill:#b2b8d1}
+      .tag{font-size:12px;font-weight:700;letter-spacing:1.4px;fill:#8ef8ef}
+      .node{fill:url(#node);stroke:#414867;stroke-width:1.5}
+      .connector{fill:none;stroke:#8ce9e7;stroke-width:2.4;marker-end:url(#arrow)}
+      .soft{fill:none;stroke:#8e84ff;stroke-width:2.1;stroke-dasharray:7 7;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1500" height="900" rx="30" fill="url(#canvas)"/>
+  <circle cx="1320" cy="90" r="230" fill="#6d53c5" opacity=".09"/>
+  <circle cx="110" cy="830" r="250" fill="#1bbac6" opacity=".07"/>
+  <path d="M55 138h1390" stroke="#343a58"/>
+  <text x="68" y="78" class="tag">LOCAL SPEECH PIPELINE</text>
+  <text x="68" y="119" class="title">From audio to an auditable transcript</text>
+  <text x="68" y="168" class="sub">CPU-first inference · bounded extra compute · no ungrounded transcript rewriting</text>
+
+  <g>
+    <rect class="node" x="65" y="250" width="235" height="170" rx="20"/>
+    <rect x="65" y="250" width="235" height="5" rx="3" fill="url(#accent)"/>
+    <text x="88" y="292" class="tag">01 · INPUT</text>
+    <text x="88" y="329" class="label">Audio + context</text>
+    <text x="88" y="362" class="detail">Microphone or local file</text>
+    <text x="88" y="386" class="detail">Optional verified vocabulary</text>
+
+    <rect class="node" x="360" y="250" width="235" height="170" rx="20"/>
+    <rect x="360" y="250" width="235" height="5" rx="3" fill="url(#accent)"/>
+    <text x="383" y="292" class="tag">02 · PREPARE</text>
+    <text x="383" y="329" class="label">Audio processing</text>
+    <text x="383" y="362" class="detail">Decode · mono · 16 kHz</text>
+    <text x="383" y="386" class="detail">Quality checks · VAD</text>
+
+    <rect class="node" x="655" y="250" width="235" height="170" rx="20"/>
+    <rect x="655" y="250" width="235" height="5" rx="3" fill="url(#accent)"/>
+    <text x="678" y="292" class="tag">03 · BASELINE</text>
+    <text x="678" y="329" class="label">faster-whisper</text>
+    <text x="678" y="362" class="detail">CPU / INT8 · tiny / base / small</text>
+    <text x="678" y="386" class="detail">Transcript + timestamps retained</text>
+
+    <rect class="node" x="950" y="250" width="235" height="170" rx="20"/>
+    <rect x="950" y="250" width="235" height="5" rx="3" fill="url(#accent)"/>
+    <text x="973" y="292" class="tag">04 · ASSESS</text>
+    <text x="973" y="329" class="label">Uncertainty signals</text>
+    <text x="973" y="362" class="detail">Segment risk + ASR evidence</text>
+    <text x="973" y="386" class="detail">Heuristics; not calibrated</text>
+
+    <rect class="node" x="1245" y="250" width="190" height="170" rx="20"/>
+    <rect x="1245" y="250" width="190" height="5" rx="3" fill="url(#accent)"/>
+    <text x="1268" y="292" class="tag">05 · DECIDE</text>
+    <text x="1268" y="329" class="label">Policy</text>
+    <text x="1268" y="362" class="detail">Accept · re-decode</text>
+    <text x="1268" y="386" class="detail">or ask to clarify</text>
+  </g>
+
+  <path class="connector" d="M300 335h48"/>
+  <path class="connector" d="M595 335h48"/>
+  <path class="connector" d="M890 335h48"/>
+  <path class="connector" d="M1185 335h48"/>
+
+  <path class="soft" d="M1340 420v46H355v27"/>
+  <text x="560" y="458" class="tag">ACCEPT BASELINE</text>
+
+  <text x="68" y="510" class="tag">SELECTIVE PATH</text>
+  <path class="soft" d="M1340 420v112H1150"/>
+  <rect class="node" x="870" y="500" width="280" height="150" rx="20"/>
+  <rect x="870" y="500" width="280" height="5" rx="3" fill="#8877f4"/>
+  <text x="895" y="540" class="tag">BOUNDED COMPUTE</text>
+  <text x="895" y="576" class="label">Re-decode selected region</text>
+  <text x="895" y="609" class="detail">Only flagged audio, within budget</text>
+  <text x="895" y="631" class="detail">Alternative candidates keep provenance</text>
+
+  <path class="connector" d="M870 575h-46"/>
+  <rect class="node" x="540" y="500" width="280" height="150" rx="20"/>
+  <rect x="540" y="500" width="280" height="5" rx="3" fill="url(#accent)"/>
+  <text x="565" y="540" class="tag">GROUNDED REVIEW</text>
+  <text x="565" y="576" class="label">Compare candidates</text>
+  <text x="565" y="609" class="detail">Baseline · evidence · context</text>
+  <text x="565" y="631" class="detail">Correction reason is recorded</text>
+
+  <path class="connector" d="M540 575h-46"/>
+  <rect class="node" x="215" y="500" width="280" height="150" rx="20"/>
+  <rect x="215" y="500" width="280" height="5" rx="3" fill="#41c7b9"/>
+  <text x="240" y="540" class="tag">RESULT</text>
+  <text x="240" y="576" class="label">Transcript + provenance</text>
+  <text x="240" y="609" class="detail">Semantic signals · metrics · JSON</text>
+  <text x="240" y="631" class="detail">No correction is silently hidden</text>
+
+  <path class="soft" d="M1340 420v300h-185"/>
+  <rect class="node" x="870" y="690" width="280" height="112" rx="20"/>
+  <rect x="870" y="690" width="280" height="5" rx="3" fill="#ed76a5"/>
+  <text x="895" y="730" class="tag" style="fill:#ff9abd">CLARIFICATION</text>
+  <text x="895" y="768" class="label">Ambiguity remains visible</text>
+  <text x="895" y="790" class="detail">The system can ask instead of guessing</text>
+
+  <path class="soft" d="M1340 420v74H690v-12"/>
+  <text x="68" y="855" class="sub">Current status: research prototype · selective re-decoding is experimental · real-world robustness is not validated</text>
+</svg>

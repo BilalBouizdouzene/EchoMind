@@ -1,0 +1,38 @@
+# Python environments and generated caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest-*/
+.ruff_cache/
+.mypy_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local settings and logs
+.env
+.env.*
+!.env.example
+*.log
+
+# Downloaded models, corpora, and machine-specific evaluation outputs
+models/
+.cache/
+data/evaluation/corpus/
+data/evaluation/generated/
+data/evaluation/.download/
+data/evaluation/manifests/*.csv
+!data/evaluation/manifests/*.example.csv
+data/metadata/*.json
+experiments/reports/*.json
+
+# Build and operating-system files
+dist/
+build/
+*.egg-info/
+.DS_Store
+Thumbs.db

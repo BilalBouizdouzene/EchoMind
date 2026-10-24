@@ -1,0 +1,11 @@
+# Minimal CPU-first install
+numpy>=1.24,<3
+soundfile>=0.12,<1
+pydantic>=2.5,<3
+PyYAML>=6,<7
+requests>=2.31,<3
+fastapi>=0.110,<1
+uvicorn[standard]>=0.27,<1
+
+# Optional UI and ASR components. Install them when needed:
+# pip install "echomind[asr,ui,science]"

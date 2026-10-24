@@ -1,0 +1,8 @@
+uncertainty:
+  high: 0.65
+  medium: 0.40
+  min_segment_seconds: 0.20
+decision:
+  clarify_ambiguity: 0.60
+  redecode_uncertainty: 0.65
+  max_latency_ms: 30000

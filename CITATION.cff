@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+title: "EchoMind — Self-Correcting Multilingual Speech Intelligence"
+message: "If this prototype helps your work, please cite the repository and the specific dataset versions used."
+type: software
+version: 0.1.0
+date-released: 2026-10-19
+authors:
+  - family-names: "EchoMind contributors"
+license: MIT
+keywords:
+  - speech recognition
+  - uncertainty estimation
+  - multilingual NLP
+  - selective correction
+  - code switching
+abstract: "A local-first, CPU-compatible research prototype for uncertainty-aware multilingual speech intelligence."

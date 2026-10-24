@@ -1,0 +1,16 @@
+app_name: EchoMind
+mode: LIGHT
+sample_rate: 16000
+max_audio_seconds: 180
+cpu_threads: 4
+max_concurrent_inference: 1
+language_mode: auto
+asr_model: tiny
+beam_size: 1
+enable_uncertainty: true
+enable_selective_correction: true
+enable_contextual_nlp: true
+max_redecode_regions: 2
+max_redecode_fraction: 0.25
+correction_context_seconds: 1.0
+logging_level: INFO
