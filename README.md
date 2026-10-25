@@ -101,7 +101,7 @@ The suite tests the application logic and API with lightweight fixtures. Real-mo
 - src/echomind/ui/ — shared dashboard components and optional Gradio interface
 - scripts/ — model preparation, corpus handling, evaluation, and demo utilities
 - data/evaluation/ — data instructions, manifests, annotations, and local-only corpus files
-- docs/ — methodology, data notes, limitations, and portfolio walkthrough
+- docs/ — architecture, methodology, data notes, evaluation, and limitations
 - experiments/reports/ — curated Markdown summaries; generated JSON stays local
 
 ## License
